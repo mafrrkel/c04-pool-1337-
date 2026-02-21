@@ -77,7 +77,7 @@ void	ft_putnbr_base(int nbr, char *base)
 
 int	main(void)
 {
-	char	HX[17] = "0123456789ABCDEF";
-	ft_putnbr_base(-91, HX);
+	char	HX[4] = "ABC";
+	ft_putnbr_base(5, HX);
 	return (0);
 }
