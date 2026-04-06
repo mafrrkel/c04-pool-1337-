@@ -1,4 +1,4 @@
-#include <stdio.h>
+i#include <stdio.h>
 //check base function
 int     ft_check_base(char *base)
 {
@@ -88,8 +88,8 @@ int	ft_atoi_base(char *str, char *base)
 int	main(void)
 {
 	int	number;
-	char text[10] = "-+ +--100";
-	char binery[9] = "01234567";
+	char text[5] = "-+10";
+	char binery[3] = "01";
 
 	number = ft_atoi_base(text,binery);
 	printf ("%d",number);
