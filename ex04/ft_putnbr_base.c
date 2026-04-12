@@ -1,83 +1,66 @@
-#include <stdio.h>
 #include <unistd.h>
 
-//fanction to len
-int	ft_put_str_len(char *str)
+int	ft_strlen(char *str)
 {
-	int	len;
+	int		len;
 
 	len = 0;
 	while (str[len] != '\0')
-	{
-		len ++;
-	}
+		len++;
 	return (len);
 }
 
-// function to check base
 int	ft_check_base(char *base)
 {
-	if (*base == '\0') //base case
-		return(1);
-	if (*base == '+' || *base == '-' ||
-			*base <= 32 || *base == 127)// condition 2
-		return 0;
-	int	i;
+	int		i;
+	int		j;
 
-	i = 1;
-	while (*(base + i) != '\0')//comparition
+	i = 0;
+	if (ft_strlen(base) <= 1)
+		return (0);
+	while (base[i] != '\0')
 	{
-		if (*base == *(base + i))
-				return 0;
+		if (((9 <= base[i] && base[i] <= 13) || base[i] == 32)
+			|| (base[i] == '-' || base[i] == '+'))
+			return (0);
+		j = i + 1;
+		while (base[j] != '\0')
+		{
+			if (base[j] == base[i])
+				return (0);
+			j++;
+		}
 		i++;
 	}
-	return (ft_check_base(base + 1));
+	return (ft_strlen(base));
 }
 
-//function to Transfer
-void	ft_put_nbr_len_base(long n, int len, char *str)
+void	ft_print_nbr(long n, char *base, int len)
 {
 	if (n == 0)
-		return;
-	int	i;
-
-	i = n % len;
-	n = n / len;
-	ft_put_nbr_len_base(n, len, str);
-	write(1, &str[i], 1);
+		return ;
+	ft_print_nbr(n / len, base, len);
+	write (1, &base[n % len], 1);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	ret;
-	long	nb;
+	int		len;
+	long		n;
 
-	nb = nbr;
-	//check base
-	ret = ft_put_str_len(base);
-	if (ret < 2)
-		return;
-	ret = ft_check_base(base);
-	if (ret == 0)
-		return;
-	//ckeck for negative numbers
-	if (nb < 0)
-        {
-                nb = -nb;
-                write (1, "-", 1);
-        }
-
-	//Transfer
-	ret = ft_put_str_len(base);
-	if (nb > ret)
-		ft_put_nbr_len_base(nb,ret,base);
-	else
-		write (1, &base[nb], 1);
-}
-
-int	main(void)
-{
-	char	HX[4] = "ABC";
-	ft_putnbr_base(5, HX);
-	return (0);
+	n = nbr;
+	len = ft_check_base(base);
+	if (len == 0)
+		return ;
+	if (n == 0)
+	{
+		write (1, &base[0], 1);
+		return ;
+	}
+	if (n < 0)
+	{
+		n = -n;
+		write (1, "-", 1);
+	}
+	ft_print_nbr(n, base, len);
 }

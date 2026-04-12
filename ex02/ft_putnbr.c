@@ -1,33 +1,28 @@
 #include <unistd.h>
-void ft_putint_char(int n)
+
+void	ft_put_int_to_char(int n)
 {
-	char c;
+	char	c;
+
 	c = n + '0';
 	write (1, &c, 1);
 }
+
 void	ft_putnbr(int nbr)
 {
-	if (nbr == -2147483648)
+	long	n;
+
+	n = nbr;
+	if (n < 0)
 	{
-		write (1, "-2147483648", 11);
-		return ;
-	}
-	if (nbr < 0)
-	{
-		nbr = -nbr;
+		n = -n;
 		write (1, "-", 1);
 	}
-	if (nbr <=  9)
+	if (n <= 9)
 	{
-		ft_putint_char(nbr);
+		ft_put_int_to_char(n);
 		return ;
 	}
-	ft_putnbr(nbr/10);
-	ft_putint_char(nbr % 10);
-
-}
-int	main(void)
-{
-	ft_putnbr(-42);
-	return 0;
+	ft_putnbr(n / 10);
+	ft_put_int_to_char(n % 10);
 }
